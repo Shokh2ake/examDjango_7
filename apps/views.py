@@ -15,17 +15,12 @@ class UserListView(ListView):
 
 class UserDeleteView(DeleteView):
     model = User
-    pk_url_kwarg = 'pk'
-    form = UserForm
-    template_name = 'apps/user_list.html'
+    queryset = User.objects.all()
     success_url = reverse_lazy('user_list_page')
 
-    def get(self, request, pk):
-        User.objects.filter(id=pk).delete()
-        return redirect('product_list_page')
 
 class UserUpdateView(UpdateView):
-    template_name = "delete.html"
-
-
-
+    template_name = 'update_user.html'
+    form_class = UserForm
+    model = User
+    success_url = reverse_lazy('index')
